@@ -6,7 +6,10 @@ Look into the fork for
 - [ ] Lower bound primer
 - [ ] (More) Readable code
 - [ ] (More) Sectioning and updated problem descriptions
-- [ ] Personal learning track for CP
+- [ ] Website version i.e. article format
+- [ ] PDF (preferably articles will help here)
+- [ ] Tracks (Essential CP Track and Essential Interview Track)
+- [ ] (PRIVATE BRANCH) Personal learning track for CP
 
 # ORIGINAL README
 

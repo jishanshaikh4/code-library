@@ -19,40 +19,40 @@ int n, k;
 int a[N], mid[N][N];
 ll res[N][N];
 ll solve() {
-    for (int s = 0; s <= k; s++) {       // s - length of the subarray
-        for (int l = 0; l + s <= k; l++) { // l - left point
-            int r = l + s;                   // r - right point
-            if (s < 2) {
-                res[l][r] = 0; // base case- nothing to break
-                mid[l][r] = l; // mid is equal to left border
-                continue;
-            }
-            int mleft = mid[l][r - 1];
-            int mright = mid[l + 1][r];
-            res[l][r] = 2e18;
-            for (int m = mleft; m <= mright;
-                    m++) { // iterating for m in the bounds only
-                ll tmp = res[l][m] + res[m][r] + (a[r] - a[l]);
-                if (res[l][r] > tmp) { // relax current solution
-                    res[l][r] = tmp;
-                    mid[l][r] = m;
-                }
-            }
+  for (int s = 0; s <= k; s++) {       // s - length of the subarray
+    for (int l = 0; l + s <= k; l++) { // l - left point
+      int r = l + s;                   // r - right point
+      if (s < 2) {
+        res[l][r] = 0; // base case- nothing to break
+        mid[l][r] = l; // mid is equal to left border
+        continue;
+      }
+      int mleft = mid[l][r - 1];
+      int mright = mid[l + 1][r];
+      res[l][r] = 2e18;
+      for (int m = mleft; m <= mright;
+           m++) { // iterating for m in the bounds only
+        ll tmp = res[l][m] + res[m][r] + (a[r] - a[l]);
+        if (res[l][r] > tmp) { // relax current solution
+          res[l][r] = tmp;
+          mid[l][r] = m;
         }
+      }
     }
-    ll ans = res[0][k];
-    return ans;
+  }
+  ll ans = res[0][k];
+  return ans;
 }
 int main() {
-    int i, j, m;
-    while (cin >> n >> k) {
-        for (i = 1; i <= k; i++)
-            cin >> a[i];
-        a[0] = 0;
-        a[k + 1] = n;
-        k++;
-        cout << solve() << endl;
-    }
-    return 0;
+  int i, j, m;
+  while (cin >> n >> k) {
+    for (i = 1; i <= k; i++)
+      cin >> a[i];
+    a[0] = 0;
+    a[k + 1] = n;
+    k++;
+    cout << solve() << endl;
+  }
+  return 0;
 }
 // https://vjudge.net/problem/ZOJ-2860

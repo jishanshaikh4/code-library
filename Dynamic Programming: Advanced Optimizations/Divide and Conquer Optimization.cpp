@@ -40,7 +40,7 @@ void yo(int i, int l, int r, int optl, int optr) {
   for (int k = optl; k <= min(mid, optr); k++) {
     int c = dp[i - 1][k] + cost(k + 1, mid);
     if (c < dp[i][mid]) { // for maximum cost just change < to > only and rest
-                          // of the algo should not be changed
+      // of the algo should not be changed
       dp[i][mid] = c;
       opt = k;
     }

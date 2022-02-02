@@ -91,85 +91,85 @@ we subtract that value instead
 
 int c[N], small[N], big[N];
 int main() {
-  string s;
-  int i, j, k, n, m, q, tot = 0;
-  cin >> q;
-  while (q--) {
-    cin >> s >> n;
-    if (s[0] == 'a') {
-      if (__builtin_popcount(n) <= 8) {
-        small[n]++;
-        for (i = n; i > 0; i = (i - 1) & n)
-          c[i]++;
-        tot++;
-      } else {
-        vector<int> v;
-        for (i = 0; i < 16; i++)
-          if (!((n >> i) & 1))
-            v.push_back(i);
-        k = v.size();
-        for (i = 0; i < (1 << k); i++) {
-          int val = n;
-          for (j = 0; j < k; j++)
-            if ((i >> j) & 1) {
-              val |= (1 << v[j]);
+    string s;
+    int i, j, k, n, m, q, tot = 0;
+    cin >> q;
+    while (q--) {
+        cin >> s >> n;
+        if (s[0] == 'a') {
+            if (__builtin_popcount(n) <= 8) {
+                small[n]++;
+                for (i = n; i > 0; i = (i - 1) & n)
+                    c[i]++;
+                tot++;
+            } else {
+                vector<int> v;
+                for (i = 0; i < 16; i++)
+                    if (!((n >> i) & 1))
+                        v.push_back(i);
+                k = v.size();
+                for (i = 0; i < (1 << k); i++) {
+                    int val = n;
+                    for (j = 0; j < k; j++)
+                        if ((i >> j) & 1) {
+                            val |= (1 << v[j]);
+                        }
+                    big[val]++;
+                }
             }
-          big[val]++;
-        }
-      }
-    } else if (s[0] == 'd') {
-      if (__builtin_popcount(n) <= 8) {
-        small[n]--;
-        for (i = n; i > 0; i = (i - 1) & n)
-          c[i]--;
-        tot--;
-      } else {
-        vector<int> v;
-        for (i = 0; i < 16; i++)
-          if (!((n >> i) & 1))
-            v.push_back(i);
-        k = v.size();
-        for (i = 0; i < (1 << k); i++) {
-          int val = n;
-          for (j = 0; j < k; j++)
-            if ((i >> j) & 1) {
-              val |= (1 << v[j]);
+        } else if (s[0] == 'd') {
+            if (__builtin_popcount(n) <= 8) {
+                small[n]--;
+                for (i = n; i > 0; i = (i - 1) & n)
+                    c[i]--;
+                tot--;
+            } else {
+                vector<int> v;
+                for (i = 0; i < 16; i++)
+                    if (!((n >> i) & 1))
+                        v.push_back(i);
+                k = v.size();
+                for (i = 0; i < (1 << k); i++) {
+                    int val = n;
+                    for (j = 0; j < k; j++)
+                        if ((i >> j) & 1) {
+                            val |= (1 << v[j]);
+                        }
+                    big[val]--;
+                }
             }
-          big[val]--;
-        }
-      }
-    } else {
-      if (__builtin_popcount(n) <= 8) {
-        int ans = 0;
-        for (i = n; i > 0; i = (i - 1) & n)
-          ans += small[i];
-        ans += small[0];
-        cout << ans << endl;
-      } else {
-        int ans = big[n];
-        vector<int> v;
-        for (i = 0; i < 16; i++)
-          if (!((n >> i) & 1))
-            v.push_back(i);
-        k = v.size();
-        int nw = 0;
-        for (i = 1; i < (1 << k); i++) {
-          int val = 0, cnt = 0;
-          for (j = 0; j < k; j++)
-            if ((i >> j) & 1) {
-              val |= (1 << v[j]);
-              cnt++;
+        } else {
+            if (__builtin_popcount(n) <= 8) {
+                int ans = 0;
+                for (i = n; i > 0; i = (i - 1) & n)
+                    ans += small[i];
+                ans += small[0];
+                cout << ans << endl;
+            } else {
+                int ans = big[n];
+                vector<int> v;
+                for (i = 0; i < 16; i++)
+                    if (!((n >> i) & 1))
+                        v.push_back(i);
+                k = v.size();
+                int nw = 0;
+                for (i = 1; i < (1 << k); i++) {
+                    int val = 0, cnt = 0;
+                    for (j = 0; j < k; j++)
+                        if ((i >> j) & 1) {
+                            val |= (1 << v[j]);
+                            cnt++;
+                        }
+                    if (cnt & 1)
+                        nw += c[val];
+                    else
+                        nw -= c[val];
+                }
+                ans += tot - nw;
+                cout << ans << endl;
             }
-          if (cnt & 1)
-            nw += c[val];
-          else
-            nw -= c[val];
         }
-        ans += tot - nw;
-        cout << ans << endl;
-      }
     }
-  }
-  return 0;
+    return 0;
 }
 // https://www.hackerrank.com/contests/countercode/challenges/subset
